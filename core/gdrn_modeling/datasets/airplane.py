@@ -84,6 +84,9 @@ def get_airplane_metadata(obj_names, ref_key):
     meta = {"thing_classes": obj_names}
     return meta
 
+def get_available_datasets():
+    return ["airplane"]
+
 AIRPLANE_OBJECT = ["airplane"]
 
 ################ register datasets with follow config############################
