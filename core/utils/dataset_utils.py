@@ -134,7 +134,7 @@ def load_detections_into_dataset(
     objs = meta.objs
     ref_key = meta.ref_key
     data_ref = ref.__dict__[ref_key]
-    models_info = data_ref.get_models_info()
+    # models_info = data_ref.get_models_info()
 
     if "annotations" in dataset_dicts[0]:
         logger.warning("pop the original annotations, load detections")
@@ -165,7 +165,7 @@ def load_detections_into_dataset(
                 "bbox_est": bbox_est,
                 "bbox_mode": BoxMode.XYWH_ABS,
                 "score": score,
-                "model_info": models_info[str(obj_id)],  # TODO: maybe just load this in the main function
+                # "model_info": models_info[str(obj_id)],  # TODO: maybe just load this in the main function
             }
             obj_annotations[obj_name].append(inst)
         for obj, cur_annos in obj_annotations.items():

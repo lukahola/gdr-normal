@@ -10,6 +10,7 @@ cur_dir = osp.dirname(osp.abspath(__file__))
 PROJ_ROOT = osp.normpath(osp.join(cur_dir, "../../.."))
 sys.path.insert(0, PROJ_ROOT)
 
+import ref
 import ref.airplane as airplane
 from lib.utils.utils import dprint, iprint, lazy_property
 from detectron2.data import DatasetCatalog, MetadataCatalog
@@ -19,10 +20,10 @@ import cv2
 class AirplaneDataset(object):
 
     def __init__(self, data_cfg):
-        self.data_name = data_cfg["data_name"]
+        self.dataset_name = data_cfg["dataset_name"]
         self.height = data_cfg["height"]
         self.width = data_cfg["width"]
-        self.dataset_file = data_cfg["dataset_file"]
+        self.data_file = data_cfg["data_file"]
         
         self.ann_file = data_cfg["ann_file"]
         self.image_prefixes = data_cfg["image_prefixes"]
@@ -65,12 +66,12 @@ class AirplaneDataset(object):
             assert osp.exists(image_path), image_path
 
             record = {
-                "data_name": self.data_name,
-                "image_name": osp.abspath(image_path),
+                "dataset_name": self.dataset_name,
+                "file_name": osp.abspath(image_path),
                 "height": self.height,
                 "width": self.width,
-                "camera": K,
-                "image_id": im_id,
+                "cam": K,
+                "scene_im_id": f"{int(0)}/{im_id + 1}",
                 "annotations": {
                     "bbox": bbox,
                     "bbox_mode": BoxMode.XYWH_ABS,
@@ -81,39 +82,50 @@ class AirplaneDataset(object):
         return dataset_dict
 
 def get_airplane_metadata(obj_names, ref_key):
+    data_ref = ref.__dict__[ref_key]
     meta = {"thing_classes": obj_names}
     return meta
-
-def get_available_datasets():
-    return ["airplane"]
 
 AIRPLANE_OBJECT = ["airplane"]
 
 ################ register datasets with follow config############################
 airplane_data = dict(
-    data_name = airplane.data_name,
-    dataset_file = airplane.dataset_file, # /output/airplane/zuo3
+    dataset_name = airplane.dataset_name,
+    data_file = airplane.data_file, # /output/airplane/zuo3
     height = airplane.height,
     width = airplane.width,
-
-    ann_file = osp.join(airplane.dataset_file, "bbox.txt"),
-    image_prefixes = airplane.dataset_file,
+    objs = AIRPLANE_OBJECT,
+    ann_file = osp.join(airplane.data_file, "bbox.txt"),
+    image_prefixes = airplane.data_file,
     camera_file=
-        osp.join(airplane.dataset_file, "{}_focal.txt").format(airplane.data_name),
+        osp.join(airplane.data_file, "{}_focal.txt").format(airplane.data_name),
+    ref_key = "airplane",
 )
 
 def register_with_name_cfg(name, data_cfg=None):
-    """
+    """Assume pre-defined datasets live in `./datasets`.
+
     Args:
         name: datasnet_name,
         data_cfg: if name is in existing SPLITS, use pre-defined data_cfg
             otherwise requires data_cfg
             data_cfg can be set in cfg.DATA_CFG.name
     """
-
-    dprint("register dataset {}".format(name))
-    used_cfg = airplane_data if data_cfg is None else data_cfg.clone()
+    dprint("register dataset: {}".format(name))
+    used_cfg = airplane_data if data_cfg is None else data_cfg
     DatasetCatalog.register(name, AirplaneDataset(used_cfg))
+    # something like eval_types
+    MetadataCatalog.get(name).set(
+        objs=used_cfg["objs"],
+        id="test_airplane",  # NOTE: for pvnet to determine module
+        ref_key=used_cfg["ref_key"],
+        eval_error_types=["ad", "rete", "proj"],
+        evaluator_type="bop",
+        **get_airplane_metadata(obj_names=used_cfg["objs"], ref_key=used_cfg["ref_key"]),
+    )
+
+def get_available_datasets():
+    return list(["airplane"])
 
 #### tests ###############################################
 def test_vis():

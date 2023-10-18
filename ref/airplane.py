@@ -14,20 +14,21 @@ root_dir = osp.normpath(osp.join(cur_dir, ".."))
 # directory storing experiment data (result, model checkpoints, etc).
 output_dir = osp.join(root_dir, "output")
 
-data_root = osp.join(root_dir, "datasets")
+dataset_root = osp.join(root_dir, "datasets")
 # bop_root = osp.join(data_root, "BOP_DATASETS/")
 
 # ---------------------------------------------------------------- #
 # LINEMOD DATASET
 # ---------------------------------------------------------------- #
-dataset_root = osp.join(data_root, "airplane")
+dataset_name = "airplane"
+data_root = osp.join(dataset_root, "airplane")
 data_name = "zuo3"
-dataset_file = osp.join(dataset_root, data_name) # "/output/airplane/zuo3"
-ann_file = osp.join(dataset_file, "bbox.txt")
+data_file = osp.join(data_root, data_name) # "/output/airplane/zuo3"
+ann_file = osp.join(data_file, "bbox.txt")
 
 # train_dir = osp.join(dataset_root, "train")
 # test_dir = osp.join(dataset_root, "test")
-# model_dir = osp.join(dataset_root, "models")
+model_dir = "/home/datasets/linemod/lm/models/"
 vertex_scale = 0.001
 # model_eval_dir = osp.join(dataset_root, "models_eval")
 # scaled models (.obj)
