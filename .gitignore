@@ -3,11 +3,19 @@ pretrained_models
 # output dir
 /data
 <<<<<<< HEAD
+<<<<<<< HEAD
 # /datasets
 *.so.*
 *.tar.gz
 *.egg-info*
 # /output
+=======
+
+*.so.*
+*.tar.gz
+*.egg-info*
+
+>>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
 =======
 
 *.so.*
@@ -22,9 +30,12 @@ inference_test_output
 *.ttf
 *.jpg
 <<<<<<< HEAD
+<<<<<<< HEAD
 # *.png
 # *.txt
 =======
+=======
+>>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
 
 *.txt
 >>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
@@ -40,7 +51,11 @@ dist/
 
 # pytorch/python/numpy formats
 <<<<<<< HEAD
+<<<<<<< HEAD
 # *.pth
+=======
+
+>>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
 =======
 
 >>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
@@ -49,7 +64,11 @@ dist/
 
 # ipython/jupyter notebooks
 <<<<<<< HEAD
+<<<<<<< HEAD
 # *.ipynb
+=======
+
+>>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
 =======
 
 >>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
