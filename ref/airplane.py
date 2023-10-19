@@ -22,7 +22,7 @@ dataset_root = osp.join(root_dir, "datasets")
 # ---------------------------------------------------------------- #
 dataset_name = "airplane"
 data_root = osp.join(dataset_root, "airplane")
-data_name = "zuo3"
+data_name = "you3"
 data_file = osp.join(data_root, data_name) # "/output/airplane/zuo3"
 ann_file = osp.join(data_file, "bbox.txt")
 

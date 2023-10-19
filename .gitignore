@@ -2,19 +2,32 @@ pretrained_models
 .DS_Store
 # output dir
 /data
-/datasets
+<<<<<<< HEAD
+# /datasets
 *.so.*
 *.tar.gz
 *.egg-info*
-/output
+# /output
+=======
+
+*.so.*
+*.tar.gz
+*.egg-info*
+
+>>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
 instant_test_output
 inference_test_output
 
 
 *.ttf
 *.jpg
-*.png
+<<<<<<< HEAD
+# *.png
+# *.txt
+=======
+
 *.txt
+>>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
 
 # compilation and distribution
 __pycache__
@@ -26,12 +39,20 @@ build/
 dist/
 
 # pytorch/python/numpy formats
-*.pth
+<<<<<<< HEAD
+# *.pth
+=======
+
+>>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
 *.pkl
 *.npy
 
 # ipython/jupyter notebooks
-*.ipynb
+<<<<<<< HEAD
+# *.ipynb
+=======
+
+>>>>>>> fa900b797f1fe03555b7943a082e078c23f9a646
 **/.ipynb_checkpoints/
 
 # Editor temporaries

@@ -447,31 +447,31 @@ class GDRN_DatasetFromList(Base_DatasetFromList):
                 roi_infos["roi_img"].append(roi_img.astype("float32"))
 
                 # roi_coord_2d
-                # if self.cfg.MODEL.CDPN.PNP_NET.COORD_TYPE == 'abs':
-                #     roi_coord_2d = crop_resize_by_warp_affine(
-                #         coord_2d, bbox_center, scale, out_res, interpolation=cv2.INTER_LINEAR
-                #     ).transpose(
-                #         2, 0, 1
-                #     )  # HWC -> CHW
-                # elif self.cfg.MODEL.CDPN.PNP_NET.COORD_TYPE == 'rel':
-                #     roi_coord_2d = crop_resize_by_warp_affine(
-                #         coord_2d, bbox_center, scale, out_res, interpolation=cv2.INTER_LINEAR
-                #     ).transpose(
-                #         2, 0, 1
-                #     )  # HWC -> CHW
-                #     roi_coord_2d[0] = roi_coord_2d[0] + 0.5 - (roi_coord_2d[0][31][31]+roi_coord_2d[0][32][32])/2
-                #     roi_coord_2d[1] = roi_coord_2d[1] + 0.5 - (roi_coord_2d[1][31][31]+roi_coord_2d[1][32][32])/2
-                # elif self.cfg.MODEL.CDPN.PNP_NET.COORD_TYPE == 'rel-aniso':
-                #     roi_coord_2d = np.asarray(np.meshgrid(
-                #         np.linspace((1-bw/im_W)/2, (1+bw/im_W)/2, out_res, dtype=np.float32), 
-                #         np.linspace((1-bh/im_H)/2, (1+bh/im_H)/2, out_res, dtype=np.float32)))
-                # elif self.cfg.MODEL.CDPN.PNP_NET.COORD_TYPE == 'rel-iso':
-                #     roi_coord_2d = np.asarray(np.meshgrid(
-                #         np.linspace((1-scale/im_W)/2, (1+scale/im_W)/2, out_res, dtype=np.float32), 
-                #         np.linspace((1-scale/im_H)/2, (1+scale/im_H)/2, out_res, dtype=np.float32)))
-                # else:
-                #     raise ValueError('Unknown roi_coord_2d type!')
-                # roi_infos["roi_coord_2d"].append(roi_coord_2d.astype("float32"))
+                if self.cfg.MODEL.CDPN.PNP_NET.COORD_TYPE == 'abs':
+                    roi_coord_2d = crop_resize_by_warp_affine(
+                        coord_2d, bbox_center, scale, out_res, interpolation=cv2.INTER_LINEAR
+                    ).transpose(
+                        2, 0, 1
+                    )  # HWC -> CHW
+                elif self.cfg.MODEL.CDPN.PNP_NET.COORD_TYPE == 'rel':
+                    roi_coord_2d = crop_resize_by_warp_affine(
+                        coord_2d, bbox_center, scale, out_res, interpolation=cv2.INTER_LINEAR
+                    ).transpose(
+                        2, 0, 1
+                    )  # HWC -> CHW
+                    roi_coord_2d[0] = roi_coord_2d[0] + 0.5 - (roi_coord_2d[0][31][31]+roi_coord_2d[0][32][32])/2
+                    roi_coord_2d[1] = roi_coord_2d[1] + 0.5 - (roi_coord_2d[1][31][31]+roi_coord_2d[1][32][32])/2
+                elif self.cfg.MODEL.CDPN.PNP_NET.COORD_TYPE == 'rel-aniso':
+                    roi_coord_2d = np.asarray(np.meshgrid(
+                        np.linspace((1-bw/im_W)/2, (1+bw/im_W)/2, out_res, dtype=np.float32), 
+                        np.linspace((1-bh/im_H)/2, (1+bh/im_H)/2, out_res, dtype=np.float32)))
+                elif self.cfg.MODEL.CDPN.PNP_NET.COORD_TYPE == 'rel-iso':
+                    roi_coord_2d = np.asarray(np.meshgrid(
+                        np.linspace((1-scale/im_W)/2, (1+scale/im_W)/2, out_res, dtype=np.float32), 
+                        np.linspace((1-scale/im_H)/2, (1+scale/im_H)/2, out_res, dtype=np.float32)))
+                else:
+                    raise ValueError('Unknown roi_coord_2d type!')
+                roi_infos["roi_coord_2d"].append(roi_coord_2d.astype("float32"))
 
             for _key in roi_keys:
                 if _key in ["roi_img", "roi_coord_2d"]:

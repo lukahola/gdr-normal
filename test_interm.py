@@ -68,22 +68,6 @@ with EventStorage(start_iter) as storage:
     batch = batch_data(cfg, data)
     out_dict = model(
         batch["roi_img"],
-        gt_norm=batch.get("roi_norm", None),
-        gt_norm_bin=batch.get("roi_norm_bin", None),
-        gt_mask_trunc=batch["roi_mask_trunc"],
-        gt_mask_visib=batch["roi_mask_visib"],
-        gt_mask_obj=batch["roi_mask_obj"],
-        gt_region=batch.get("roi_region", None),
-        gt_allo_quat=batch.get("allo_quat", None),
-        gt_ego_quat=batch.get("ego_quat", None),
-        gt_allo_rot6d=batch.get("allo_rot6d", None),
-        gt_ego_rot6d=batch.get("ego_rot6d", None),
-        gt_allo_rot=batch.get("allo_rot", None),
-        gt_ego_rot=batch.get("ego_rot", None),
-        gt_trans=batch.get("trans", None),
-        gt_trans_ratio=batch["roi_trans_ratio"],
-        gt_points=batch.get("roi_points", None),
-        sym_infos=batch.get("sym_info", None),
         roi_classes=batch["roi_cls"],
         roi_cams=batch["roi_cam"],
         roi_whs=batch["roi_wh"],
@@ -91,5 +75,4 @@ with EventStorage(start_iter) as storage:
         resize_ratios=batch["resize_ratio"],
         roi_coord_2d=batch.get("roi_coord_2d", None),
         roi_extents=batch.get("roi_extent", None),
-        do_loss=False,
     )
